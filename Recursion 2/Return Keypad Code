@@ -1,0 +1,56 @@
+/*
+
+Given an integer n, using phone keypad find out all the possible strings that can be made using digits of input n.
+Return empty string for numbers 0 and 1.
+Note : 1. The order of strings are not important.
+2. Input and output has already been managed for you. You just have to populate the output array and return the count of elements populated in the output array.
+Input Format :
+Integer n
+Output Format :
+All possible strings in different lines
+Constraints :
+1 <= n <= 10^6
+Sample Input:
+23
+Sample Output:
+ad
+ae
+af
+bd
+be
+bf
+cd
+ce
+cf
+
+*/
+
+// Solution
+
+public class solution {
+
+	// Return a string array that contains all the possible strings
+	public static String[] keypad(int n){
+		if(n == 0){
+            String ans[] = {""};
+            return ans;
+        }
+        String smallAns1[] = keypad(n/10);
+        int lstdigit = n % 10;
+        String smallAns2 = helperFunction(lstdigit);
+        String ans[] = new String[smallAns1.length * smallAns2.length()];
+        int k = 0;
+        for(int i = 0; i < smallAns1.length; i++){
+            for(int j = 0; j < smallAns2.length(); j++){
+                ans[k] = smallAns1[i] + smallAns2.charAt(j);
+                k++;
+            }
+        }
+        return ans;
+        
+	}
+	private static String helperFunction(int n){
+        String mapping[] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+        return mapping[n];
+    }
+}
